@@ -18,8 +18,20 @@ export const buildQueryOptions = (req, allowedIncludes = []) => {
 
     modelsToInclude.forEach((modelName) => {
       if (allowedIncludes.includes(modelName)) {
-        if (modelName === 'Course') {
-          includes.push({ model: db.Course, as: 'Courses' });
+        switch (modelName) {
+          case 'Course':
+            includes.push({ model: db.Course, as: 'Courses' });
+            break;
+          case 'Teacher':
+            includes.push({ model: db.Teacher });
+            break;
+          case 'Student':
+            includes.push({ model: db.Student, as: 'Students' });
+            break;
+          default:
+            if (db[modelName]) {
+              includes.push({ model: db[modelName] });
+            }
         }
       }
     });

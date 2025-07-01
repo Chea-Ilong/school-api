@@ -60,6 +60,7 @@ export const getAllStudents = async (req, res) => {
     res.json({
       total,
       page: parseInt(req.query.page) || 1,
+      limit: parseInt(req.query.limit) || 10,
       totalPages: Math.ceil(total / (options.limit || 10)),
       data: students,
     });

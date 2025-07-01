@@ -81,6 +81,7 @@ export const getAllTeachers = async (req, res) => {
     res.json({
       total,
       page: parseInt(req.query.page) || 1,
+      limit: parseInt(req.query.limit) || 10,
       totalPages: Math.ceil(total / (options.limit || 10)),
       data: teachers,
     });
@@ -109,7 +110,7 @@ export const getAllTeachers = async (req, res) => {
 export const getTeacherById = async (req, res) => {
   try {
     const teacher = await db.Teacher.findByPk(req.params.id, {
-      include: [{ model: db.Course, as: 'Courses' }]  // Use the alias 'Courses' here
+      include: [{ model: db.Course, as: 'Courses' }]
     });
     if (!teacher) return res.status(404).json({ message: 'Not found' });
     res.json(teacher);

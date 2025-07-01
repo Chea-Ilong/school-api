@@ -82,11 +82,10 @@ export const getAllCourses = async (req, res) => {
     const courses = await db.Course.findAll(options);
 
     res.json({
-      meta: {
-        totalItems: total,
-        page: parseInt(req.query.page) || 1,
-        totalPages: Math.ceil(total / (options.limit || 10)),
-      },
+      total,
+      page: parseInt(req.query.page) || 1,
+      limit: parseInt(req.query.limit) || 10,
+      totalPages: Math.ceil(total / (options.limit || 10)),
       data: courses,
     });
   } catch (err) {
