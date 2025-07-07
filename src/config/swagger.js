@@ -7,10 +7,25 @@ const options = {
         info: {
             title: 'School API',
             version: '1.0.0',
-            description: 'API for managing students, courses, and teachers',
+            description: 'API for managing students, courses, teachers, and authentication',
         },
+        components: {
+            securitySchemes: {
+                bearerAuth: {
+                    type: 'http',
+                    scheme: 'bearer',
+                    bearerFormat: 'JWT',
+                    description: 'Enter JWT token in the format: Bearer <token>'
+                }
+            }
+        },
+        security: [
+            {
+                bearerAuth: []
+            }
+        ]
     },
-    apis: ['**/controllers/*.js'],
+    apis: ['**/controllers/*.js', '**/routes/*.js'],
 };
 
 const swaggerSpec = swaggerJSDoc(options);

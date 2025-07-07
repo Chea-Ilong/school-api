@@ -6,7 +6,44 @@ import { buildQueryOptions } from '../utils/queryOption.js';
  * @swagger
  * tags:
  *   name: Students
- *   description: Student management
+ *   description: Student management (requires authentication)
+ */
+
+/**
+ * @swagger
+ * /students:
+ *   post:
+ *     summary: Create a new student
+ *     tags: [Students]
+ *     security:
+ *       - bearerAuth: []
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required:
+ *               - name
+ *               - email
+ *             properties:
+ *               name:
+ *                 type: string
+ *                 description: Student's full name
+ *               email:
+ *                 type: string
+ *                 format: email
+ *                 description: Student's email address
+ *               age:
+ *                 type: integer
+ *                 description: Student's age
+ *     responses:
+ *       201:
+ *         description: Student created successfully
+ *       401:
+ *         description: Unauthorized - missing or invalid token
+ *       500:
+ *         description: Internal server error
  */
 
 export const createStudent = async (req, res) => {
@@ -24,6 +61,8 @@ export const createStudent = async (req, res) => {
  *   get:
  *     summary: Get all students
  *     tags: [Students]
+ *     security:
+ *       - bearerAuth: []
  *     parameters:
  *       - in: query
  *         name: page
